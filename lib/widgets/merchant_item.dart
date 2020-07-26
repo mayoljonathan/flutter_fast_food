@@ -52,6 +52,18 @@ class MerchantItem extends StatelessWidget {
         color: Color(merchant.backgroundColor),
       ),
       height: 200,
+      width: double.infinity,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
+            merchant.imageUrl,
+            fit: BoxFit.contain,
+            height: 150,
+            width: 150,
+          )
+        ],
+      ),
     );
   }
 
@@ -85,9 +97,7 @@ class MerchantItem extends StatelessWidget {
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (final tag in merchant.tags) Text(tag),
-                ],
+                children: _getTags(),
               ),
               Text(merchant.priceLevel),
             ],
@@ -100,5 +110,21 @@ class MerchantItem extends StatelessWidget {
           )
       ],
     );
+  }
+
+  List<Widget> _getTags() {
+    if (merchant.tags.length == 0) return null;
+
+    List<Widget> children = [];
+
+    merchant.tags.asMap().forEach((int index, String tag) {
+      if (index == merchant.tags.length - 1) {
+        children.add(Text(tag));
+        return;
+      }
+      children.add(Text(tag + ', '));
+    });
+
+    return children;
   }
 }

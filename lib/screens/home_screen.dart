@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
-import '../constants/logo.dart';
+import '../constants/images.dart';
 import '../models/merchant.dart';
 import '../widgets/merchant_item.dart';
 
@@ -13,16 +13,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController(viewportFraction: 0.8);
   final double _viewportFraction = 0.8;
-
   int _currentIndex = 0;
 
   final List<Merchant> _merchants = [
     Merchant(
       name: 'McDonald\'s',
-      logoUrl: Logo.MCDO,
-      imageUrl: Logo.MCDO,
+      logoUrl: Images.MCDO,
+      imageUrl: Images.MCDO_HERO,
       rating: 4.8,
       tags: ['Burgers', 'American'],
       priceLevel: '\$\$\$',
@@ -31,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Merchant(
       name: 'Subway',
-      logoUrl: Logo.SUBWAY,
-      imageUrl: Logo.SUBWAY,
+      logoUrl: Images.SUBWAY,
+      imageUrl: Images.SUBWAY_HERO,
       rating: 4.8,
       tags: ['Sandwich', 'Healthy'],
       priceLevel: '\$\$\$',
@@ -40,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Merchant(
       name: 'KFC',
-      logoUrl: Logo.KFC,
-      imageUrl: Logo.KFC,
+      logoUrl: Images.KFC,
+      imageUrl: Images.KFC_HERO,
       rating: 4.5,
       tags: ['Chicken', 'American'],
       priceLevel: '\$\$\$',
@@ -50,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Merchant(
       name: 'Starbucks',
-      logoUrl: Logo.STARBUCKS,
-      imageUrl: Logo.STARBUCKS,
+      logoUrl: Images.STARBUCKS,
+      imageUrl: Images.STARBUCKS_HERO,
       rating: 4.5,
       tags: ['Coffee', 'Beverages'],
       priceLevel: '\$\$\$',
@@ -60,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Merchant(
       name: 'Domino\'s Pizza',
-      logoUrl: Logo.DOMINOS_PIZZA,
-      imageUrl: Logo.DOMINOS_PIZZA,
+      logoUrl: Images.DOMINOS_PIZZA,
+      imageUrl: Images.DOMINOS_PIZZA_HERO,
       rating: 4.5,
       tags: ['Pizza', 'Italian'],
       priceLevel: '\$\$\$',
@@ -69,8 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Merchant(
       name: 'Shake Shack',
-      logoUrl: Logo.SHAKE_SHACK,
-      imageUrl: Logo.SHAKE_SHACK,
+      logoUrl: Images.SHAKE_SHACK,
+      imageUrl: Images.SHAKE_SHACK_HERO,
       rating: 4.5,
       tags: ['Burger', 'American'],
       priceLevel: '\$\$\$',
@@ -81,6 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: _buildDeliveryLocationChip(),
               ),
               Transform.translate(
-                offset: Offset(0, 100),
+                offset: Offset(0, size.height * 0.1),
                 child: Swiper(
                   loop: true,
                   transformer: ScaleAndFadeTransformer(),
