@@ -1,7 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fast_food/screens/merchant_detail_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../constants/images.dart';
 import '../models/merchant.dart';
@@ -106,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: _merchants.length,
                   itemBuilder: (_, int index) => MerchantItem(
                     merchant: _merchants[index],
+                    onTap: () => _orderToMerchant(_merchants[index]),
                   ),
                 ),
               )
@@ -119,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: RawMaterialButton(
             shape: StadiumBorder(),
-            onPressed: () {},
+            onPressed: () => _orderToMerchant(_merchants[_currentIndex]),
             fillColor: Colors.black,
             padding: const EdgeInsets.symmetric(
               horizontal: 12.0,
@@ -177,6 +180,16 @@ class _HomeScreenState extends State<HomeScreen> {
             style: textStyle,
           ),
         ],
+      ),
+    );
+  }
+
+  void _orderToMerchant(Merchant merchant) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => MerchantDetailScreen(
+          merchant: merchant,
+        ),
       ),
     );
   }
