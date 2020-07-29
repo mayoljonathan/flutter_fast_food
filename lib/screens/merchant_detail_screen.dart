@@ -164,7 +164,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
 
               // Spacer to the bottom
               SliverPadding(
-                padding: EdgeInsets.only(bottom: mqd.viewPadding.top),
+                padding: EdgeInsets.only(bottom: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
               )
             ],
           ),
