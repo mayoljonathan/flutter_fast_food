@@ -34,7 +34,7 @@ class MerchantInfo extends StatelessWidget {
                 children: [
                   Icon(
                     EvaIcons.star,
-                    color: Colors.yellow,
+                    color: Colors.yellow.shade600,
                     size: 20,
                   ),
                   SizedBox(width: 3.0),
@@ -58,7 +58,7 @@ class MerchantInfo extends StatelessWidget {
               vertical: 6.0,
             ),
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(24.0),
             ),
             child: Text(

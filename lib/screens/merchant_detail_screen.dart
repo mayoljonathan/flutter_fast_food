@@ -1,8 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
+import '../data/data.dart';
+import '../models/item_category.dart';
 import '../models/merchant.dart';
 import '../widgets/fade_translate_animation.dart';
+import '../widgets/item_category_list.dart';
+import '../widgets/item_grid.dart';
 import '../widgets/merchant_info.dart';
 
 class MerchantDetailScreen extends StatefulWidget {
@@ -27,6 +31,8 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   Animation<num> _merchantInfoBorderRadiusTween;
 
   Animation<num> _topSpacerTween;
+
+  final double _merchantInfoBorderRadius = 20.0;
 
   // Threshold when hero will no longer show
   final double _collapseThreshold = 150;
@@ -56,7 +62,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
     ).animate(_animationController);
 
     _merchantInfoBorderRadiusTween = Tween(
-      begin: 24.0,
+      begin: _merchantInfoBorderRadius,
       end: 0.0,
     ).animate(_animationController);
 
@@ -91,6 +97,21 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
             physics: BouncingScrollPhysics(),
             controller: _scrollController,
             slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _SliverAppBarDelegate(
+                  child: PreferredSize(
+                    preferredSize: Size.fromHeight(mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
+                    child: AnimatedBuilder(
+                      animation: _animationController,
+                      builder: (_, __) => Container(
+                        height: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top,
+                        color: _bgColorTween.value == Colors.white ? Colors.white : Colors.transparent,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(top: mqd.viewPadding.top),
@@ -112,30 +133,39 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   ),
                 ),
               ),
-              // TODO: Item Grid
               SliverToBoxAdapter(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 150,
-                        child: Placeholder(),
-                      ),
-                      Container(
-                        height: 200,
-                        child: Placeholder(),
-                      ),
-                      Container(
-                        height: 200,
-                        child: Placeholder(),
-                      ),
-                    ],
+                child: Material(
+                  color: Colors.white,
+                  child: FadeTranslateAnimation(
+                    offset: Offset(0, -mqd.size.height),
+                    child: ItemCategoryList(
+                      categories: Data.itemCategories,
+                      onSelected: (ItemCategory selected) {
+                        print(selected.name);
+                      },
+                    ),
                   ),
                 ),
               ),
+              for (final itemCategory in Data.itemCategories)
+                if (itemCategory.items.length > 0)
+                  SliverToBoxAdapter(
+                    child: Material(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 24.0),
+                        child: FadeTranslateAnimation(
+                          offset: Offset(0, -mqd.size.height),
+                          child: ItemGrid(itemCategory: itemCategory),
+                        ),
+                      ),
+                    ),
+                  ),
+
+              // Spacer to the bottom
+              SliverPadding(
+                padding: EdgeInsets.only(bottom: mqd.viewPadding.top),
+              )
             ],
           ),
           _buildAppBar(),
@@ -161,7 +191,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                 children: [
                   FadeTranslateAnimation(
                     animateDelay: const Duration(milliseconds: 100),
-                    offset: Offset(-24, 0),
+                    offset: Offset(-9, 0),
                     child: IconButton(
                       icon: Icon(EvaIcons.arrowBackOutline),
                       onPressed: () => Navigator.pop(context),
@@ -193,11 +223,11 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
               child: child,
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
+              padding: const EdgeInsets.only(bottom: 6.0),
               child: Image.asset(
                 widget.merchant.imageUrl,
-                height: 200,
-                width: 200,
+                height: 180,
+                width: 180,
               ),
             ),
           ),
@@ -214,31 +244,34 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(24.0),
-                topRight: Radius.circular(24.0),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(_merchantInfoBorderRadius),
+                topRight: Radius.circular(_merchantInfoBorderRadius),
               ),
               color: Colors.white,
             ),
           ),
         ),
-        AnimatedBuilder(
-          animation: _animationController,
-          builder: (_, Widget child) => Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(_merchantInfoBorderRadiusTween.value),
-                topRight: Radius.circular(_merchantInfoBorderRadiusTween.value),
+        FadeTranslateAnimation(
+          animateDelay: const Duration(milliseconds: 100),
+          child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (_, Widget child) => Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(_merchantInfoBorderRadiusTween.value),
+                  topRight: Radius.circular(_merchantInfoBorderRadiusTween.value),
+                ),
               ),
+              padding: const EdgeInsets.all(24.0),
+              child: child,
             ),
-            padding: const EdgeInsets.all(24.0),
-            child: child,
-          ),
-          child: MerchantInfo(
-            tag: 'merchant-info-${widget.merchant.hashCode}',
-            merchant: widget.merchant,
+            child: MerchantInfo(
+              tag: 'merchant-info-${widget.merchant.hashCode}',
+              merchant: widget.merchant,
+            ),
           ),
         )
       ],

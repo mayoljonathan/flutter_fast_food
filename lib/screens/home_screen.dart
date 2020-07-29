@@ -1,13 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fast_food/screens/merchant_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:page_transition/page_transition.dart';
 
-import '../constants/images.dart';
+import '../data/data.dart';
 import '../models/merchant.dart';
 import '../widgets/merchant_item.dart';
+import 'merchant_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,66 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final double _viewportFraction = 0.8;
   int _currentIndex = 0;
 
-  final List<Merchant> _merchants = [
-    Merchant(
-      name: 'McDonald\'s',
-      logoUrl: Images.MCDO,
-      imageUrl: Images.MCDO_HERO,
-      rating: 4.8,
-      tags: ['Burgers', 'American'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFFFF5A3A,
-      estimatedDelivery: '10 - 15 min',
-    ),
-    Merchant(
-      name: 'Subway',
-      logoUrl: Images.SUBWAY,
-      imageUrl: Images.SUBWAY_HERO,
-      rating: 4.8,
-      tags: ['Sandwich', 'Healthy'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFF0BA218,
-    ),
-    Merchant(
-      name: 'KFC',
-      logoUrl: Images.KFC,
-      imageUrl: Images.KFC_HERO,
-      rating: 4.5,
-      tags: ['Chicken', 'American'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFFFF5A3A,
-      estimatedDelivery: '5 - 10 min',
-    ),
-    Merchant(
-      name: 'Starbucks',
-      logoUrl: Images.STARBUCKS,
-      imageUrl: Images.STARBUCKS_HERO,
-      rating: 4.5,
-      tags: ['Coffee', 'Beverages'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFF008780,
-      estimatedDelivery: '10 - 15 min',
-    ),
-    Merchant(
-      name: 'Domino\'s Pizza',
-      logoUrl: Images.DOMINOS_PIZZA,
-      imageUrl: Images.DOMINOS_PIZZA_HERO,
-      rating: 4.5,
-      tags: ['Pizza', 'Italian'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFF0082E8,
-    ),
-    Merchant(
-      name: 'Shake Shack',
-      logoUrl: Images.SHAKE_SHACK,
-      imageUrl: Images.SHAKE_SHACK_HERO,
-      rating: 4.5,
-      tags: ['Burger', 'American'],
-      priceLevel: '\$\$\$',
-      backgroundColor: 0xFF0A090F,
-      estimatedDelivery: '10 - 20 min',
-    ),
-  ];
+  final List<Merchant> _merchants = Data.merchants;
 
   @override
   Widget build(BuildContext context) {
