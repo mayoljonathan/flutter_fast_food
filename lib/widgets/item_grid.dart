@@ -1,3 +1,4 @@
+import 'package:fast_food/screens/item_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/item_category.dart';
@@ -36,7 +37,30 @@ class ItemGrid extends StatelessWidget {
             mainAxisSpacing: 24.0,
           ),
           itemCount: itemCategory.items.length,
-          itemBuilder: (_, int i) => ItemTile(item: itemCategory.items[i]),
+          itemBuilder: (_, int i) => GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                builder: (_) => ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: mqd.size.height - mqd.viewPadding.top,
+                  ),
+                  child: ItemDetailScreen(
+                    item: itemCategory.items[i],
+                  ),
+                ),
+              );
+            },
+            child: ItemTile(item: itemCategory.items[i]),
+          ),
         )
       ],
     );

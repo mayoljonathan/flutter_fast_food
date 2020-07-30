@@ -55,7 +55,14 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
                   behavior: HitTestBehavior.translucent,
                   child: _buildIcon(EvaIcons.minusOutline),
                 ),
-              if (_value != 0) Text(_value.toString()),
+              if (_value != 0)
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: !canDecrement ? 12.0 : 0,
+                    right: !canIncrement ? 12.0 : 0,
+                  ),
+                  child: Text(_value.toString()),
+                ),
               if (canIncrement)
                 GestureDetector(
                   onTap: _onIncrement,

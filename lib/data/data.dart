@@ -1,3 +1,4 @@
+import 'package:fast_food/models/ingredient.dart';
 import 'package:fast_food/models/item.dart';
 import 'package:fast_food/models/item_category.dart';
 
@@ -83,24 +84,38 @@ class Data {
       id: 'a1',
       imageUrl: Images.KFC_HERO,
       name: 'Big Breakfast Meal',
+      description: '',
+      ingredients: [],
       price: 50,
     ),
     Item(
       id: 'a2',
       imageUrl: Images.KFC_HERO,
       name: 'Chicken Sausage',
+      description: null,
+      ingredients: [],
       price: 50,
     ),
     Item(
       id: 'a3',
       imageUrl: Images.KFC_HERO,
-      name: 'Big Breakfast Meal',
+      name: 'Big Mac Burger',
+      description:
+          'A big and tasty Halal beef patty smothered in our one of a kind Big Tasty Sauce and 3 sliecs of emmental cheese',
+      ingredients: [
+        Ingredient(name: 'Big Bun', imageUrl: Images.SUBWAY_HERO),
+        Ingredient(name: 'Beef Patty', imageUrl: Images.DOMINOS_PIZZA_HERO),
+        Ingredient(name: 'Lettuce', imageUrl: Images.MCDO_HERO),
+        Ingredient(name: 'Pickles', imageUrl: Images.STARBUCKS_HERO),
+      ],
       price: 75,
     ),
     Item(
       id: 'a4',
       imageUrl: Images.KFC_HERO,
       name: 'Chicken Sausage',
+      description: null,
+      ingredients: [],
       price: 55,
     ),
   ];

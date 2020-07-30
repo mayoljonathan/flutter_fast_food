@@ -5,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../data/data.dart';
 import '../models/merchant.dart';
+import '../widgets/awesome_button.dart';
 import '../widgets/merchant_item.dart';
 import 'merchant_detail_screen.dart';
 
@@ -60,21 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
         widthFactor: _viewportFraction,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: RawMaterialButton(
-            shape: StadiumBorder(),
+          child: AwesomeButton(
+            text: 'Order from here',
             onPressed: () => _orderToMerchant(_merchants[_currentIndex]),
-            fillColor: Colors.black,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 12.0,
-            ),
-            child: Text(
-              'Order from here',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ),
         ),
       ),
