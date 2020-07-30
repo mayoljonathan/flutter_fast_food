@@ -5,23 +5,20 @@ import 'item_category_tile.dart';
 
 typedef OnItemCategorySelected = void Function(ItemCategory);
 
-class ItemCategoryList extends StatefulWidget {
+class ItemCategoryList extends StatelessWidget {
   const ItemCategoryList({
     Key key,
     @required this.categories,
     this.initialIndex = 0,
     this.onSelected,
+    this.selectedColor = const Color(0xFFFF4130),
   });
 
   final int initialIndex;
   final List<ItemCategory> categories;
   final OnItemCategorySelected onSelected;
+  final Color selectedColor;
 
-  @override
-  _ItemCategoryListState createState() => _ItemCategoryListState();
-}
-
-class _ItemCategoryListState extends State<ItemCategoryList> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,14 +28,15 @@ class _ItemCategoryListState extends State<ItemCategoryList> {
         physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         scrollDirection: Axis.horizontal,
-        itemCount: widget.categories.length,
+        itemCount: categories.length,
         separatorBuilder: (_, __) => SizedBox(width: 12.0),
         itemBuilder: (_, int i) => SizedBox(
           width: 100,
           child: ItemCategoryTile(
-            // isSelected: ,
-            itemCategory: widget.categories[i],
-            onSelected: widget.onSelected,
+            isSelected: i == initialIndex,
+            itemCategory: categories[i],
+            onSelected: onSelected,
+            selectedColor: selectedColor,
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../data/data.dart';
 import '../models/item_category.dart';
@@ -36,6 +37,8 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
 
   // Threshold when hero will no longer show
   final double _collapseThreshold = 150;
+
+  int _selectedCategoryIndex = 0;
 
   @override
   void initState() {
@@ -139,9 +142,13 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   child: FadeTranslateAnimation(
                     offset: Offset(0, -mqd.size.height),
                     child: ItemCategoryList(
+                      initialIndex: _selectedCategoryIndex,
                       categories: Data.itemCategories,
+                      selectedColor: Color(widget.merchant.backgroundColor),
                       onSelected: (ItemCategory selected) {
-                        print(selected.name);
+                        setState(() {
+                          _selectedCategoryIndex = Data.itemCategories.indexOf(selected);
+                        });
                       },
                     ),
                   ),

@@ -75,6 +75,7 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
       child: Icon(
         iconData,
         size: 18.0,
+        color: Colors.grey.shade600,
       ),
     );
   }

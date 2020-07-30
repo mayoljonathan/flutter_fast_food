@@ -8,11 +8,13 @@ class ItemCategoryTile extends StatelessWidget {
     Key key,
     @required this.itemCategory,
     this.isSelected = false,
+    this.selectedColor,
     this.onSelected,
   });
 
   final ItemCategory itemCategory;
   final bool isSelected;
+  final Color selectedColor;
   final OnItemCategorySelected onSelected;
 
   @override
@@ -20,7 +22,7 @@ class ItemCategoryTile extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(9.0),
       child: Material(
-        color: !isSelected ? Colors.grey.shade100 : Color(0xFFFF4130),
+        color: !isSelected ? Colors.grey.shade100 : selectedColor,
         child: InkWell(
           onTap: onSelected != null ? () => onSelected(itemCategory) : null,
           child: Padding(

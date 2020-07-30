@@ -1,10 +1,7 @@
-import 'package:animations/animations.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fast_food/screens/merchant_detail_screen.dart';
-import 'package:fast_food/widgets/merchant_info.dart';
 import 'package:flutter/material.dart';
 
 import '../models/merchant.dart';
+import 'merchant_info.dart';
 
 class MerchantItem extends StatelessWidget {
   const MerchantItem({Key key, @required this.merchant, this.onTap});
