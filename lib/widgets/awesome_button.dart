@@ -19,6 +19,7 @@ class AwesomeButton extends StatelessWidget {
       child: RawMaterialButton(
         elevation: 0,
         focusElevation: 0,
+        hoverElevation: 0,
         highlightElevation: 0,
         shape: StadiumBorder(),
         onPressed: onPressed,
