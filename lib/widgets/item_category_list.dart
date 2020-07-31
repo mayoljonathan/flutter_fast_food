@@ -25,6 +25,7 @@ class ItemCategoryList extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 18.0),
       height: 120,
       child: ListView.separated(
+        shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         scrollDirection: Axis.horizontal,

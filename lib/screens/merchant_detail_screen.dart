@@ -141,15 +141,17 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   color: Colors.white,
                   child: FadeTranslateAnimation(
                     offset: Offset(0, -mqd.size.height),
-                    child: ItemCategoryList(
-                      initialIndex: _selectedCategoryIndex,
-                      categories: Data.itemCategories,
-                      selectedColor: Color(widget.merchant.backgroundColor),
-                      onSelected: (ItemCategory selected) {
-                        setState(() {
-                          _selectedCategoryIndex = Data.itemCategories.indexOf(selected);
-                        });
-                      },
+                    child: Center(
+                      child: ItemCategoryList(
+                        initialIndex: _selectedCategoryIndex,
+                        categories: Data.itemCategories,
+                        selectedColor: Color(widget.merchant.backgroundColor),
+                        onSelected: (ItemCategory selected) {
+                          setState(() {
+                            _selectedCategoryIndex = Data.itemCategories.indexOf(selected);
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),

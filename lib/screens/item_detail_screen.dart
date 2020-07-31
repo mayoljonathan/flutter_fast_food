@@ -118,10 +118,11 @@ class ItemDetailScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: SizedBox(
                 height: 120,
                 child: ListView.separated(
+                  shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
