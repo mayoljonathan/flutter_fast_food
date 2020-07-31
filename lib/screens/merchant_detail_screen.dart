@@ -1,4 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fast_food/widgets/awesome_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,8 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   final double _collapseThreshold = 150;
 
   int _selectedCategoryIndex = 0;
+
+  final double _bottomBarHeight = kToolbarHeight + 24.0;
 
   @override
   void initState() {
@@ -90,6 +93,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
     return Material(
       child: Stack(
         children: [
+          // Merchant's background color
           AnimatedBuilder(
             animation: _animationController,
             builder: (_, __) => Container(
@@ -100,6 +104,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
             physics: BouncingScrollPhysics(),
             controller: _scrollController,
             slivers: [
+              // Container to the device status bar since it shows the main body overlapping
               SliverPersistentHeader(
                 pinned: true,
                 delegate: _SliverAppBarDelegate(
@@ -115,18 +120,21 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   ),
                 ),
               ),
+              // Merchant's hero image!
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(top: mqd.viewPadding.top),
                   child: _buildHero(),
                 ),
               ),
+              // Give a Hero a floating effect when scrolled!
               AnimatedBuilder(
                 animation: _animationController,
                 builder: (_, __) => SliverPadding(
                   padding: EdgeInsets.only(top: _topSpacerTween.value),
                 ),
               ),
+              // Merchant's info sticky header
               SliverPersistentHeader(
                 pinned: true,
                 delegate: _SliverAppBarDelegate(
@@ -136,6 +144,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   ),
                 ),
               ),
+              // Item's category list
               SliverToBoxAdapter(
                 child: Material(
                   color: Colors.white,
@@ -156,6 +165,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   ),
                 ),
               ),
+              // Items grid for each item categories
               for (final itemCategory in Data.itemCategories)
                 if (itemCategory.items.length > 0)
                   SliverToBoxAdapter(
@@ -172,12 +182,19 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                   ),
 
               // Spacer to the bottom
+              // TODO: Only shows when cart is empty
               SliverPadding(
                 padding: EdgeInsets.only(bottom: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
+              ),
+
+              // TODO: Only shows when cart is not empty
+              SliverPadding(
+                padding: EdgeInsets.only(bottom: _bottomBarHeight),
               )
             ],
           ),
           _buildAppBar(),
+          _buildBottomBar(),
         ],
       ),
     );
@@ -286,6 +303,66 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
       ],
     );
   }
+
+  Widget _buildBottomBar() {
+    final TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
+
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: _bottomBarHeight,
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(0, -1),
+              end: Alignment(0, 1),
+              colors: [
+                Colors.white10,
+                Colors.white24,
+                Colors.white,
+              ],
+              stops: [
+                0.01,
+                0.05,
+                0.2,
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text('1', style: textStyle),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text('PHP 24', style: textStyle),
+                  ),
+                ),
+                Expanded(
+                  child: AwesomeButton(
+                    onPressed: () {},
+                    text: 'View cart',
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
@@ -299,9 +376,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => child.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return child;
-  }
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) => child;
 
   @override
   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) => false;

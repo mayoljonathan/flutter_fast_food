@@ -25,7 +25,7 @@ class AwesomeButton extends StatelessWidget {
         onPressed: onPressed,
         fillColor: Colors.black,
         padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
+          horizontal: 24.0,
           vertical: 12.0,
         ),
         child: Text(
