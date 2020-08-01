@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/home_screen.dart';
+import 'viewmodels/cart_viewmodel.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,21 +11,24 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fast Food',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        canvasColor: Colors.white,
-        fontFamily: 'Manrope',
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: <TargetPlatform, PageTransitionsBuilder>{
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-          },
+    return ChangeNotifierProvider<CartViewModel>(
+      create: (_) => CartViewModel(),
+      child: MaterialApp(
+        title: 'Fast Food',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          canvasColor: Colors.white,
+          fontFamily: 'Manrope',
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            },
+          ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        home: HomeScreen(),
       ),
-      home: HomeScreen(),
     );
   }
 }

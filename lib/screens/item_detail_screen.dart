@@ -7,16 +7,41 @@ import '../widgets/fade_translate_animation.dart';
 import '../widgets/modal_handle_indicator.dart';
 import '../widgets/quantity_picker.dart';
 
-class ItemDetailScreen extends StatelessWidget {
+class ItemDetailScreen extends StatefulWidget {
   const ItemDetailScreen({
     Key key,
     @required this.item,
-  });
+    this.initialQuantity = 0,
+  }) : super(key: key);
 
   final Item item;
+  final int initialQuantity;
 
+  @override
+  _ItemDetailScreenState createState() => _ItemDetailScreenState();
+}
+
+class _ItemDetailScreenState extends State<ItemDetailScreen> {
   final Duration _animationDuration = const Duration(milliseconds: 500);
-  final double _bottomBarHeight = 56.0;
+  final double _bottomBarHeight = kToolbarHeight + 24.0;
+
+  int _tempQuantity;
+
+  bool get _isInCart => widget.initialQuantity > 0;
+  double get _totalPrice => _tempQuantity * widget.item.price;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tempQuantity = _isInCart ? widget.initialQuantity : 1;
+  }
+
+  String get buttonText {
+    if (_tempQuantity == 0) return 'Back to Menu';
+    if (_isInCart) return 'Update Cart – PHP $_totalPrice';
+    return 'Add to Cart – PHP $_totalPrice';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +57,7 @@ class ItemDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 18.0),
                 child: _buildItemInfo(context),
               ),
-              SizedBox(height: _bottomBarHeight + 24.0),
+              SizedBox(height: _bottomBarHeight),
             ],
           ),
         ),
@@ -40,7 +65,7 @@ class ItemDetailScreen extends StatelessWidget {
           bottom: 0,
           left: 0,
           right: 0,
-          height: _bottomBarHeight + 24.0,
+          height: _bottomBarHeight,
           child: _buildBottomBar(context),
         ),
         Positioned(
@@ -78,13 +103,13 @@ class ItemDetailScreen extends StatelessWidget {
               FadeTranslateAnimation(
                 duration: _animationDuration,
                 child: Image.asset(
-                  item.imageUrl,
+                  widget.item.imageUrl,
                   height: 150,
                   width: 150,
                 ),
               ),
               Text(
-                item.name,
+                widget.item.name,
                 textAlign: TextAlign.center,
                 style: textTheme.headline6.copyWith(
                   fontWeight: FontWeight.bold,
@@ -92,7 +117,7 @@ class ItemDetailScreen extends StatelessWidget {
               ),
               SizedBox(height: 3.0),
               Text(
-                'PHP ${item.price}',
+                'PHP ${widget.item.price}',
                 style: textTheme.subtitle1.copyWith(
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
@@ -101,7 +126,7 @@ class ItemDetailScreen extends StatelessWidget {
             ],
           ),
         ),
-        if (item.hasDescription)
+        if (widget.item.hasDescription)
           Padding(
             padding: const EdgeInsets.only(
               top: 24.0,
@@ -109,12 +134,12 @@ class ItemDetailScreen extends StatelessWidget {
               right: 24.0,
             ),
             child: Text(
-              item.description,
+              widget.item.description,
               textAlign: TextAlign.center,
               style: textTheme.bodyText2.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
             ),
           ),
-        if (item.hasIngredients)
+        if (widget.item.hasIngredients)
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Align(
@@ -126,8 +151,8 @@ class ItemDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: item.ingredients.length,
-                  itemBuilder: (_, int i) => _buildIngredientItem(item.ingredients[i]),
+                  itemCount: widget.item.ingredients.length,
+                  itemBuilder: (_, int i) => _buildIngredientItem(widget.item.ingredients[i]),
                   separatorBuilder: (_, __) => SizedBox(width: 12.0),
                 ),
               ),
@@ -200,13 +225,17 @@ class ItemDetailScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: 48,
-              child: QuantityPicker(),
+              child: QuantityPicker(
+                key: ObjectKey(widget.item),
+                value: _tempQuantity,
+                onChanged: (int newQuantity) => setState(() => _tempQuantity = newQuantity),
+              ),
             ),
             SizedBox(width: 18.0),
             Expanded(
               child: AwesomeButton(
-                onPressed: () => Navigator.pop(context),
-                text: 'Add to cart',
+                onPressed: () => Navigator.pop(context, _tempQuantity),
+                text: buttonText,
               ),
             )
           ],

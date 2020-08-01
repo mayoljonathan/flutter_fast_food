@@ -69,54 +69,52 @@ class Data {
   static List<Merchant> get merchants => _merchants;
 
   static List<ItemCategory> _itemCategories = [
-    ItemCategory(name: 'Breakfast', imageUrl: Images.MCDO_HERO, items: _items),
+    ItemCategory(name: 'Breakfast', imageUrl: Images.MCDO_HERO, items: [
+      Item(
+        id: 'a1',
+        imageUrl: Images.KFC_HERO,
+        name: 'Big Breakfast Meal',
+        description: '',
+        ingredients: [],
+        price: 50,
+      ),
+      Item(
+        id: 'a2',
+        imageUrl: Images.KFC_HERO,
+        name: 'Chicken Sausage',
+        description: null,
+        ingredients: [],
+        price: 50,
+      ),
+      Item(
+        id: 'a3',
+        imageUrl: Images.KFC_HERO,
+        name: 'Big Mac Burger',
+        description:
+            'A big and tasty Halal beef patty smothered in our one of a kind Big Tasty Sauce and 3 sliecs of emmental cheese',
+        ingredients: [
+          Ingredient(name: 'Big Bun', imageUrl: Images.SUBWAY_HERO),
+          Ingredient(name: 'Beef Patty', imageUrl: Images.DOMINOS_PIZZA_HERO),
+          Ingredient(name: 'Lettuce', imageUrl: Images.MCDO_HERO),
+          Ingredient(name: 'Pickles', imageUrl: Images.STARBUCKS_HERO),
+        ],
+        price: 75,
+      ),
+      Item(
+        id: 'a4',
+        imageUrl: Images.KFC_HERO,
+        name: 'Chicken Sausage',
+        description: null,
+        ingredients: [],
+        price: 55,
+      ),
+    ]),
     ItemCategory(name: 'Burgers', imageUrl: Images.SUBWAY_HERO, items: []),
-    ItemCategory(name: 'Value Meals', imageUrl: Images.KFC_HERO, items: _items),
+    ItemCategory(name: 'Value Meals', imageUrl: Images.KFC_HERO, items: []),
     ItemCategory(name: 'Snack & Sides', imageUrl: Images.SHAKE_SHACK_HERO, items: []),
     ItemCategory(name: 'Deserts', imageUrl: Images.DOMINOS_PIZZA_HERO, items: []),
     ItemCategory(name: 'Salads', imageUrl: Images.MCDO_HERO, items: []),
     ItemCategory(name: 'McCafe', imageUrl: Images.STARBUCKS_HERO, items: []),
   ];
   static List<ItemCategory> get itemCategories => _itemCategories;
-
-  static List<Item> _items = [
-    Item(
-      id: 'a1',
-      imageUrl: Images.KFC_HERO,
-      name: 'Big Breakfast Meal',
-      description: '',
-      ingredients: [],
-      price: 50,
-    ),
-    Item(
-      id: 'a2',
-      imageUrl: Images.KFC_HERO,
-      name: 'Chicken Sausage',
-      description: null,
-      ingredients: [],
-      price: 50,
-    ),
-    Item(
-      id: 'a3',
-      imageUrl: Images.KFC_HERO,
-      name: 'Big Mac Burger',
-      description:
-          'A big and tasty Halal beef patty smothered in our one of a kind Big Tasty Sauce and 3 sliecs of emmental cheese',
-      ingredients: [
-        Ingredient(name: 'Big Bun', imageUrl: Images.SUBWAY_HERO),
-        Ingredient(name: 'Beef Patty', imageUrl: Images.DOMINOS_PIZZA_HERO),
-        Ingredient(name: 'Lettuce', imageUrl: Images.MCDO_HERO),
-        Ingredient(name: 'Pickles', imageUrl: Images.STARBUCKS_HERO),
-      ],
-      price: 75,
-    ),
-    Item(
-      id: 'a4',
-      imageUrl: Images.KFC_HERO,
-      name: 'Chicken Sausage',
-      description: null,
-      ingredients: [],
-      price: 55,
-    ),
-  ];
 }

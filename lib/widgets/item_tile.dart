@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/item.dart';
+import '../viewmodels/cart_viewmodel.dart';
+import '../viewmodels/item_viewmodel.dart';
 import 'quantity_picker.dart';
 
 class ItemTile extends StatelessWidget {
   const ItemTile({
     Key key,
-    @required this.item,
-  });
-
-  final Item item;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ItemViewModel itemViewModel = context.watch<ItemViewModel>();
+    final Item item = itemViewModel.item;
+
+    debugPrint('[ItemTile - ${item.name}] Build once');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,7 +55,14 @@ class ItemTile extends StatelessWidget {
               ),
             ),
             QuantityPicker(
-              value: 0,
+              key: ObjectKey(item),
+              value: itemViewModel.quantity,
+              onChanged: (int newQuantity) {
+                final CartViewModel cartViewModel = context.read<CartViewModel>();
+
+                itemViewModel.setQuantity(newQuantity);
+                cartViewModel.addOrUpdateToCart(itemViewModel);
+              },
             )
           ],
         ),

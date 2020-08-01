@@ -9,7 +9,7 @@ class QuantityPicker extends StatefulWidget {
     this.minValue = 0,
     this.maxValue,
     this.onChanged,
-  });
+  }) : super(key: key);
 
   final int value;
   final int step;
@@ -24,17 +24,13 @@ class QuantityPicker extends StatefulWidget {
 class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProviderStateMixin {
   int _value;
 
-  @override
-  void initState() {
-    super.initState();
-    _value = widget.value;
-  }
-
   bool get canDecrement => widget.minValue == null || _value - widget.step >= widget.minValue;
   bool get canIncrement => widget.maxValue == null || _value + widget.step <= widget.maxValue;
 
   @override
   Widget build(BuildContext context) {
+    _value = widget.value;
+
     return FittedBox(
       child: Material(
         shape: StadiumBorder(

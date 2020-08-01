@@ -1,11 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fast_food/widgets/awesome_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../data/data.dart';
 import '../models/item_category.dart';
 import '../models/merchant.dart';
+import '../viewmodels/cart_viewmodel.dart';
+import '../widgets/awesome_button.dart';
 import '../widgets/fade_translate_animation.dart';
 import '../widgets/item_category_list.dart';
 import '../widgets/item_grid.dart';
@@ -181,20 +182,26 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                     ),
                   ),
 
-              // Spacer to the bottom
-              // TODO: Only shows when cart is empty
-              SliverPadding(
-                padding: EdgeInsets.only(bottom: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
-              ),
-
-              // TODO: Only shows when cart is not empty
+              // Spacer for the bottom bar
               SliverPadding(
                 padding: EdgeInsets.only(bottom: _bottomBarHeight),
-              )
+              ),
             ],
           ),
           _buildAppBar(),
-          _buildBottomBar(),
+          // Bottom Bar
+          Selector<CartViewModel, bool>(
+            selector: (_, CartViewModel model) => model.isEmpty,
+            builder: (_, bool isEmpty, Widget child) => AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.fastOutSlowIn,
+              bottom: !isEmpty ? 0 : -_bottomBarHeight,
+              left: 0,
+              right: 0,
+              height: _bottomBarHeight,
+              child: _buildBottomBar(),
+            ),
+          ),
         ],
       ),
     );
@@ -307,57 +314,75 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   Widget _buildBottomBar() {
     final TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
 
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      height: _bottomBarHeight,
-      child: SafeArea(
-        top: false,
-        bottom: true,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(0, -1),
-              end: Alignment(0, 1),
-              colors: [
-                Colors.white10,
-                Colors.white24,
-                Colors.white,
-              ],
-              stops: [
-                0.01,
-                0.05,
-                0.2,
-              ],
-            ),
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment(0, -1),
+            end: Alignment(0, 1),
+            colors: [
+              Colors.white10,
+              Colors.white24,
+              Colors.white,
+            ],
+            stops: [
+              0.01,
+              0.05,
+              0.2,
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text('1', style: textStyle),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  shape: BoxShape.circle,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('PHP 24', style: textStyle),
+                child: Selector<CartViewModel, int>(
+                  selector: (_, model) => model.totalQuantity,
+                  builder: (_, int totalQuantity, __) => AnimatedSize(
+                    vsync: this,
+                    duration: const Duration(milliseconds: 200),
+                    child: FadeTranslateAnimation(
+                      key: UniqueKey(), // Give it an awesome unique key so animation triggers every build
+                      offset: Offset(0, -10),
+                      child: Text(
+                        totalQuantity.toString(),
+                        style: textStyle,
+                      ),
+                    ),
                   ),
                 ),
-                Expanded(
-                  child: AwesomeButton(
-                    onPressed: () {},
-                    text: 'View cart',
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Selector<CartViewModel, double>(
+                    selector: (_, model) => model.totalPrice,
+                    builder: (_, double totalPrice, __) => FadeTranslateAnimation(
+                      key: UniqueKey(), // Give it an awesome unique key so animation triggers every build
+                      offset: Offset(0, -10),
+                      child: Text(
+                        'PHP ${totalPrice.toString()}',
+                        style: textStyle,
+                      ),
+                    ),
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              Expanded(
+                child: AwesomeButton(
+                  onPressed: () {},
+                  text: 'View cart',
+                ),
+              )
+            ],
           ),
         ),
       ),
