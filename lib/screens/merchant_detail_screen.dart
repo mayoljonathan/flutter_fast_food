@@ -1,4 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fast_food/viewmodels/merchant_detail_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,9 +40,6 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
 
   // Threshold when hero will no longer show
   final double _collapseThreshold = 150;
-
-  int _selectedCategoryIndex = 0;
-
   final double _bottomBarHeight = kToolbarHeight + 24.0;
 
   @override
@@ -91,118 +89,123 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   Widget build(BuildContext context) {
     MediaQueryData mqd = MediaQuery.of(context);
 
-    return Material(
-      child: Stack(
-        children: [
-          // Merchant's background color
-          AnimatedBuilder(
-            animation: _animationController,
-            builder: (_, __) => Container(
-              color: _bgColorTween.value,
+    return ChangeNotifierProvider(
+      create: (_) => MerchantDetailViewModel(),
+      builder: (BuildContext context, __) => Material(
+        child: Stack(
+          children: [
+            // Merchant's background color
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (_, __) => Container(
+                color: _bgColorTween.value,
+              ),
             ),
-          ),
-          CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            controller: _scrollController,
-            slivers: [
-              // Container to the device status bar since it shows the main body overlapping
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverAppBarDelegate(
-                  child: PreferredSize(
-                    preferredSize: Size.fromHeight(mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
-                    child: AnimatedBuilder(
-                      animation: _animationController,
-                      builder: (_, __) => Container(
-                        height: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top,
-                        color: _bgColorTween.value == Colors.white ? Colors.white : Colors.transparent,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Merchant's hero image!
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: mqd.viewPadding.top),
-                  child: _buildHero(),
-                ),
-              ),
-              // Give a Hero a floating effect when scrolled!
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (_, __) => SliverPadding(
-                  padding: EdgeInsets.only(top: _topSpacerTween.value),
-                ),
-              ),
-              // Merchant's info sticky header
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverAppBarDelegate(
-                  child: PreferredSize(
-                    preferredSize: Size.fromHeight(160),
-                    child: _buildStickyHeader(),
-                  ),
-                ),
-              ),
-              // Item's category list
-              SliverToBoxAdapter(
-                child: Material(
-                  color: Colors.white,
-                  child: FadeTranslateAnimation(
-                    offset: Offset(0, -mqd.size.height),
-                    child: Center(
-                      child: ItemCategoryList(
-                        initialIndex: _selectedCategoryIndex,
-                        categories: Data.itemCategories,
-                        selectedColor: Color(widget.merchant.backgroundColor),
-                        onSelected: (ItemCategory selected) {
-                          setState(() {
-                            _selectedCategoryIndex = Data.itemCategories.indexOf(selected);
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Items grid for each item categories
-              for (final itemCategory in Data.itemCategories)
-                if (itemCategory.items.length > 0)
-                  SliverToBoxAdapter(
-                    child: Material(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 24.0),
-                        child: FadeTranslateAnimation(
-                          offset: Offset(0, -mqd.size.height),
-                          child: ItemGrid(itemCategory: itemCategory),
+            CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              controller: _scrollController,
+              slivers: [
+                // Container to the device status bar since it shows the main body overlapping
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _SliverAppBarDelegate(
+                    child: PreferredSize(
+                      preferredSize: Size.fromHeight(mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top),
+                      child: AnimatedBuilder(
+                        animation: _animationController,
+                        builder: (_, __) => Container(
+                          height: mqd.viewPadding.top == 0 ? 24.0 : mqd.viewPadding.top,
+                          color: _bgColorTween.value == Colors.white ? Colors.white : Colors.transparent,
                         ),
                       ),
                     ),
                   ),
+                ),
+                // Merchant's hero image!
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: mqd.viewPadding.top),
+                    child: _buildHero(),
+                  ),
+                ),
+                // Give a Hero a floating effect when scrolled!
+                AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (_, __) => SliverPadding(
+                    padding: EdgeInsets.only(top: _topSpacerTween.value),
+                  ),
+                ),
+                // Merchant's info sticky header
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _SliverAppBarDelegate(
+                    child: PreferredSize(
+                      preferredSize: Size.fromHeight(160),
+                      child: _buildStickyHeader(),
+                    ),
+                  ),
+                ),
+                // Item's category list
+                SliverToBoxAdapter(
+                  child: Material(
+                    color: Colors.white,
+                    child: FadeTranslateAnimation(
+                      offset: Offset(0, -mqd.size.height),
+                      child: Center(
+                        child: Selector<MerchantDetailViewModel, int>(
+                          selector: (_, model) => model.selectedCategoryIndex,
+                          builder: (_, int index, __) => ItemCategoryList(
+                            initialIndex: index,
+                            categories: Data.itemCategories,
+                            selectedColor: Color(widget.merchant.backgroundColor),
+                            onSelected: (ItemCategory selected) {
+                              final merchantDetailViewModel = context.read<MerchantDetailViewModel>();
+                              merchantDetailViewModel.selectedCategoryIndex = Data.itemCategories.indexOf(selected);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Items grid for each item categories
+                for (final itemCategory in Data.itemCategories)
+                  if (itemCategory.items.length > 0)
+                    SliverToBoxAdapter(
+                      child: Material(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 24.0),
+                          child: FadeTranslateAnimation(
+                            offset: Offset(0, -mqd.size.height),
+                            child: ItemGrid(itemCategory: itemCategory),
+                          ),
+                        ),
+                      ),
+                    ),
 
-              // Spacer for the bottom bar
-              SliverPadding(
-                padding: EdgeInsets.only(bottom: _bottomBarHeight),
-              ),
-            ],
-          ),
-          _buildAppBar(),
-          // Bottom Bar
-          Selector<CartViewModel, bool>(
-            selector: (_, CartViewModel model) => model.isEmpty,
-            builder: (_, bool isEmpty, Widget child) => AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.fastOutSlowIn,
-              bottom: !isEmpty ? 0 : -_bottomBarHeight,
-              left: 0,
-              right: 0,
-              height: _bottomBarHeight,
-              child: _buildBottomBar(),
+                // Spacer for the bottom bar
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: _bottomBarHeight),
+                ),
+              ],
             ),
-          ),
-        ],
+            _buildAppBar(),
+            // Bottom Bar
+            Selector<CartViewModel, bool>(
+              selector: (_, CartViewModel model) => model.isEmpty,
+              builder: (_, bool isEmpty, Widget child) => AnimatedPositioned(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.fastOutSlowIn,
+                bottom: !isEmpty ? 0 : -_bottomBarHeight,
+                left: 0,
+                right: 0,
+                height: _bottomBarHeight,
+                child: _buildBottomBar(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
