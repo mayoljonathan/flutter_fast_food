@@ -181,11 +181,16 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
             ),
             child: FadeTranslateAnimation(
               duration: _animationDuration,
-              child: Image.asset(
-                ingredient.imageUrl,
-                height: 48,
-                width: 48,
-              ),
+              child: ingredient?.imageUrl != null
+                  ? Image.asset(
+                      ingredient.imageUrl,
+                      height: 48,
+                      width: 48,
+                    )
+                  : SizedBox(
+                      height: 48,
+                      width: 48,
+                    ),
             ),
           ),
           Expanded(

@@ -69,52 +69,99 @@ class Data {
   static List<Merchant> get merchants => _merchants;
 
   static List<ItemCategory> _itemCategories = [
-    ItemCategory(name: 'Breakfast', imageUrl: Images.MCDO_HERO, items: [
-      Item(
-        id: 'a1',
-        imageUrl: Images.KFC_HERO,
-        name: 'Big Breakfast Meal',
-        description: '',
-        ingredients: [],
-        price: 50,
-      ),
-      Item(
-        id: 'a2',
-        imageUrl: Images.KFC_HERO,
-        name: 'Chicken Sausage',
-        description: null,
-        ingredients: [],
-        price: 50,
-      ),
-      Item(
-        id: 'a3',
-        imageUrl: Images.KFC_HERO,
-        name: 'Big Mac Burger',
-        description:
-            'A big and tasty Halal beef patty smothered in our one of a kind Big Tasty Sauce and 3 sliecs of emmental cheese',
-        ingredients: [
-          Ingredient(name: 'Big Bun', imageUrl: Images.SUBWAY_HERO),
-          Ingredient(name: 'Beef Patty', imageUrl: Images.DOMINOS_PIZZA_HERO),
-          Ingredient(name: 'Lettuce', imageUrl: Images.MCDO_HERO),
-          Ingredient(name: 'Pickles', imageUrl: Images.STARBUCKS_HERO),
-        ],
-        price: 75,
-      ),
-      Item(
-        id: 'a4',
-        imageUrl: Images.KFC_HERO,
-        name: 'Chicken Sausage',
-        description: null,
-        ingredients: [],
-        price: 55,
-      ),
-    ]),
-    ItemCategory(name: 'Burgers', imageUrl: Images.SUBWAY_HERO, items: []),
-    ItemCategory(name: 'Value Meals', imageUrl: Images.KFC_HERO, items: []),
-    ItemCategory(name: 'Snack & Sides', imageUrl: Images.SHAKE_SHACK_HERO, items: []),
-    ItemCategory(name: 'Deserts', imageUrl: Images.DOMINOS_PIZZA_HERO, items: []),
-    ItemCategory(name: 'Salads', imageUrl: Images.MCDO_HERO, items: []),
-    ItemCategory(name: 'McCafe', imageUrl: Images.STARBUCKS_HERO, items: []),
+    ItemCategory(
+      name: 'Breakfast',
+      imageUrl: 'assets/images/breakfast1.png',
+      items: [
+        Item(
+          id: 'a1',
+          imageUrl: 'assets/images/breakfast1.png',
+          name: '1-pc. Mushroom Pepper Steak w/ Garlic Rice, Hash Browns & Egg Bowl',
+          description: '',
+          ingredients: [],
+          price: 138,
+        ),
+        Item(
+          id: 'a2',
+          imageUrl: 'assets/images/breakfast2.png',
+          name: 'Longganisa w/ Egg & Hash Browns Rice Bowl',
+          description: null,
+          ingredients: [],
+          price: 154,
+        ),
+        Item(
+          id: 'a3',
+          imageUrl: 'assets/images/breakfast3.png',
+          name: 'Spicy Chicken McDo & Hotcakes w/ Hash Browns',
+          description: null,
+          ingredients: [],
+          price: 179,
+        ),
+        Item(
+          id: 'a4',
+          imageUrl: 'assets/images/breakfast4.png',
+          name: 'Big Breakfast',
+          description: null,
+          ingredients: [],
+          price: 157,
+        ),
+      ],
+    ),
+    ItemCategory(
+      name: 'Burgers',
+      imageUrl: 'assets/images/burger1.png',
+      items: [
+        Item(
+          id: 'b1',
+          imageUrl: 'assets/images/burger1.png',
+          name: 'Big Mac',
+          description:
+              'A big and tasty Halal beef patty smothered in our one of a kind Big Tasty Sauce and 3 slices of emmental cheese',
+          ingredients: [
+            Ingredient(name: 'Big Bun', imageUrl: 'assets/images/ingredient1.png'),
+            Ingredient(name: 'Beef Patty', imageUrl: 'assets/images/ingredient2.png'),
+            Ingredient(name: 'Lettuce', imageUrl: 'assets/images/ingredient3.png'),
+            Ingredient(name: 'Pickles', imageUrl: 'assets/images/ingredient4.png'),
+            Ingredient(name: 'Cheese', imageUrl: 'assets/images/ingredient5.png'),
+          ],
+          price: 149,
+        ),
+        Item(
+          id: 'b2',
+          imageUrl: 'assets/images/burger2.png',
+          name: 'Cheeseburger Deluxe',
+          description:
+              'Your favorite cheeseburger is now made deluxe! The same juicy beef patty covered with a slice of cheese and ketchup, mustard, mayonnaise, fresh onions and pickles all wrapped in a fresh bun but with an extra slice of tomato and crunchy lettuce.',
+          ingredients: [
+            Ingredient(name: 'Big Bun', imageUrl: 'assets/images/ingredient1.png'),
+            Ingredient(name: 'Beef Patty', imageUrl: 'assets/images/ingredient2.png'),
+            Ingredient(name: 'Lettuce', imageUrl: 'assets/images/ingredient3.png'),
+            Ingredient(name: 'Pickles', imageUrl: 'assets/images/ingredient4.png'),
+            Ingredient(name: 'Cheese', imageUrl: 'assets/images/ingredient5.png'),
+            Ingredient(name: 'Tomato', imageUrl: 'assets/images/ingredient6.png'),
+          ],
+          price: 93,
+        ),
+        Item(
+          id: 'b3',
+          imageUrl: 'assets/images/burger3.png',
+          name: 'Double Quarter Pounder w/ Cheese',
+          description: null,
+          ingredients: [
+            Ingredient(name: 'Big Bun', imageUrl: 'assets/images/ingredient1.png'),
+            Ingredient(name: 'Beef Patty', imageUrl: 'assets/images/ingredient2.png'),
+            Ingredient(name: 'Pickles', imageUrl: 'assets/images/ingredient4.png'),
+            Ingredient(name: 'Cheese', imageUrl: 'assets/images/ingredient5.png'),
+            Ingredient(name: 'Tomato', imageUrl: 'assets/images/ingredient6.png'),
+          ],
+          price: 225,
+        ),
+      ],
+    ),
+    ItemCategory(name: 'Value Meals', imageUrl: 'assets/images/value_meal1.png', items: []),
+    ItemCategory(name: 'Snack & Sides', imageUrl: 'assets/images/snacks1.png', items: []),
+    ItemCategory(name: 'Deserts', imageUrl: 'assets/images/desert1.png', items: []),
+    ItemCategory(name: 'Beverages', imageUrl: 'assets/images/drink1.png', items: []),
   ];
   static List<ItemCategory> get itemCategories => _itemCategories;
 }
