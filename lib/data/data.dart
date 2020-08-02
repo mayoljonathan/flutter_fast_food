@@ -160,8 +160,34 @@ class Data {
     ),
     ItemCategory(name: 'Value Meals', imageUrl: 'assets/images/value_meal1.png', items: []),
     ItemCategory(name: 'Snack & Sides', imageUrl: 'assets/images/snacks1.png', items: []),
-    ItemCategory(name: 'Deserts', imageUrl: 'assets/images/desert1.png', items: []),
-    ItemCategory(name: 'Beverages', imageUrl: 'assets/images/drink1.png', items: []),
+    ItemCategory(name: 'Deserts', imageUrl: 'assets/images/desert1.png', items: [
+      Item(
+        id: 'desert1',
+        imageUrl: 'assets/images/desert1.png',
+        name: 'McFlurry with Oreo',
+        description: null,
+        ingredients: [],
+        price: 49,
+      ),
+    ]),
+    ItemCategory(name: 'Beverages', imageUrl: 'assets/images/drink1.png', items: [
+      Item(
+        id: 'drink1',
+        imageUrl: 'assets/images/drink1.png',
+        name: 'Coke McFloat',
+        description: null,
+        ingredients: [],
+        price: 45,
+      ),
+      Item(
+        id: 'sprite1',
+        imageUrl: 'assets/images/sprite.png',
+        name: 'Sprite',
+        description: null,
+        ingredients: [],
+        price: 35,
+      ),
+    ]),
   ];
   static List<ItemCategory> get itemCategories => _itemCategories;
 }
