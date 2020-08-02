@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: AwesomeButton(
+            tag: 'cta',
             text: 'Order from here',
             onPressed: () => _orderToMerchant(_merchants[_currentIndex]),
           ),

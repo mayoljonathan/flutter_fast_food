@@ -1,8 +1,15 @@
 import 'package:flutter/foundation.dart';
 
+import '../models/merchant.dart';
 import 'item_viewmodel.dart';
 
 class CartViewModel extends ChangeNotifier {
+  Merchant _merchant;
+  Merchant get merchant => _merchant;
+  void setMerchant(Merchant merchant) {
+    _merchant = merchant;
+  }
+
   bool get isEmpty => _totalQuantity == 0;
 
   int _totalQuantity = 0;

@@ -17,11 +17,14 @@ class MyApp extends StatelessWidget {
         title: 'Fast Food',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryIconTheme: IconThemeData(
+            color: Colors.black87,
+          ),
           canvasColor: Colors.white,
           fontFamily: 'Manrope',
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{
+              // TODO: ZoomPageTransitionsBuilder runs build twice
               TargetPlatform.android: ZoomPageTransitionsBuilder(),
             },
           ),

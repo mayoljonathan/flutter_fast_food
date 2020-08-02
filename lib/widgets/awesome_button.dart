@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 class AwesomeButton extends StatelessWidget {
   const AwesomeButton({
     Key key,
+    this.tag,
     @required this.text,
     @required this.onPressed,
   });
 
+  final String tag;
   final String text;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
+    Widget child = ConstrainedBox(
       constraints: BoxConstraints(
         minHeight: 48.0,
       ),
@@ -36,6 +38,13 @@ class AwesomeButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+
+    if (tag == null) return child;
+
+    return Hero(
+      tag: tag,
+      child: child,
     );
   }
 }

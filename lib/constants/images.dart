@@ -16,4 +16,6 @@ class Images {
 
   static const String SHAKE_SHACK = 'assets/images/shake_shack.png';
   static const String SHAKE_SHACK_HERO = 'assets/images/shake_shack_hero.png';
+
+  static const String APPLE_PAY = 'assets/images/apple_pay.png';
 }

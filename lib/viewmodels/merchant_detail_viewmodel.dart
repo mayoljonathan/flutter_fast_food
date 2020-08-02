@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class MerchantDetailViewModel extends ChangeNotifier {
   int _selectedCategoryIndex = 0;

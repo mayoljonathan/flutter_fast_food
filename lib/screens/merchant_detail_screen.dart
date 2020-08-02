@@ -1,5 +1,4 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fast_food/viewmodels/merchant_detail_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,11 +6,13 @@ import '../data/data.dart';
 import '../models/item_category.dart';
 import '../models/merchant.dart';
 import '../viewmodels/cart_viewmodel.dart';
+import '../viewmodels/merchant_detail_viewmodel.dart';
 import '../widgets/awesome_button.dart';
 import '../widgets/fade_translate_animation.dart';
 import '../widgets/item_category_list.dart';
-import '../widgets/item_grid.dart';
+import '../widgets/item_list.dart';
 import '../widgets/merchant_info.dart';
+import 'checkout_screen.dart';
 
 class MerchantDetailScreen extends StatefulWidget {
   const MerchantDetailScreen({
@@ -45,6 +46,7 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   @override
   void initState() {
     super.initState();
+    Provider.of<CartViewModel>(context, listen: false).setMerchant(widget.merchant);
 
     _animationController = AnimationController(
       vsync: this,
@@ -178,7 +180,10 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
                           padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 24.0),
                           child: FadeTranslateAnimation(
                             offset: Offset(0, -mqd.size.height),
-                            child: ItemGrid(itemCategory: itemCategory),
+                            child: ItemList(
+                              itemCategory: itemCategory,
+                              layout: ItemListLayout.grid,
+                            ),
                           ),
                         ),
                       ),
@@ -381,8 +386,16 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
               ),
               Expanded(
                 child: AwesomeButton(
-                  onPressed: () {},
+                  tag: 'cta',
                   text: 'View cart',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CheckoutScreen(),
+                      ),
+                    );
+                  },
                 ),
               )
             ],

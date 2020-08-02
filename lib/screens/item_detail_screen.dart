@@ -100,12 +100,15 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              FadeTranslateAnimation(
-                duration: _animationDuration,
-                child: Image.asset(
-                  widget.item.imageUrl,
-                  height: 150,
-                  width: 150,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18.0),
+                child: FadeTranslateAnimation(
+                  duration: _animationDuration,
+                  child: Image.asset(
+                    widget.item.imageUrl,
+                    height: 150,
+                    width: 150,
+                  ),
                 ),
               ),
               Text(
