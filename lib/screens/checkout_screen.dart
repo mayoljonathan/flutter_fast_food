@@ -1,15 +1,18 @@
+import 'dart:math';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fast_food/constants/images.dart';
-import 'package:fast_food/models/item.dart';
-import 'package:fast_food/models/item_category.dart';
-import 'package:fast_food/widgets/awesome_button.dart';
-import 'package:fast_food/widgets/item_list.dart';
-import 'package:fast_food/widgets/item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/images.dart';
+import '../data/data.dart';
+import '../models/item.dart';
+import '../models/item_category.dart';
 import '../viewmodels/cart_viewmodel.dart';
 import '../viewmodels/item_viewmodel.dart';
+import '../widgets/awesome_button.dart';
+import '../widgets/item_list.dart';
+import '../widgets/item_tile.dart';
 import 'item_detail_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -42,6 +45,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     ],
   );
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Get random items from a random itemCategory
+    _suggestedItems.items.insertAll(0, _getRandomItems(3));
+  }
+
+  List<Item> _getRandomItems(int randomItemCount) {
+    final validItemCategories = Data.itemCategories
+        .where((ItemCategory itemCategory) => itemCategory.items != null && itemCategory.items.length > 0)
+        .toList();
+
+    List<Item> items = [];
+
+    for (var i = 0; i < randomItemCount; i++) {
+      final random = Random();
+
+      // Random itemCategory
+      final itemCategory = validItemCategories[random.nextInt(validItemCategories.length)];
+      final Item item = itemCategory.items[random.nextInt(itemCategory.items.length)];
+
+      items.add(item);
+    }
+
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
