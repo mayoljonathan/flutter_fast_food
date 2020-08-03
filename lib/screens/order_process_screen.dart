@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -67,18 +68,50 @@ class _OrderProcessScreenState extends State<OrderProcessScreen> with TickerProv
     super.dispose();
   }
 
+  void _goBackOrToHome() async {
+    if (!_isOrderPlaced) {
+      Navigator.pop(context);
+    } else {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final CartViewModel cartViewModel = context.watch<CartViewModel>();
     final Merchant merchant = cartViewModel.merchant;
 
-    return Material(
-      color: Color(merchant.backgroundColor),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: FadeTransition(
-          opacity: _orderStateOpacityAnimation,
-          child: !_isOrderPlaced ? _buildLoadingState() : _buildSuccessState(),
+    return WillPopScope(
+      onWillPop: () async {
+        _goBackOrToHome();
+        return false;
+      },
+      child: Material(
+        color: Color(merchant.backgroundColor),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: FadeTransition(
+                opacity: _orderStateOpacityAnimation,
+                child: !_isOrderPlaced ? _buildLoadingState() : _buildSuccessState(),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: SafeArea(
+                top: true,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: IconButton(
+                    icon: Icon(EvaIcons.arrowBackOutline, color: Colors.white),
+                    onPressed: _goBackOrToHome,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
