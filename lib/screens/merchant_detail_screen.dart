@@ -88,6 +88,14 @@ class _MerchantDetailScreenState extends State<MerchantDetailScreen> with Ticker
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    _animationController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     MediaQueryData mqd = MediaQuery.of(context);
 
