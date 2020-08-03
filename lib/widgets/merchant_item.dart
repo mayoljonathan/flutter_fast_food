@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cursor/flutter_cursor.dart';
 
 import '../models/merchant.dart';
 import 'merchant_info.dart';
@@ -21,42 +23,53 @@ class MerchantItem extends StatelessWidget {
             width: 200,
           ),
         ),
-        Expanded(
-          child: GestureDetector(
-            onTap: onTap,
-            child: Stack(
-              children: [
-                Hero(
-                  tag: 'merchant-card-${merchant.hashCode}',
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(24.0),
-                        topRight: Radius.circular(24.0),
-                      ),
-                    ),
-                  ),
+        Expanded(child: _buildCard())
+      ],
+    );
+  }
+
+  Widget _buildCard() {
+    Widget child = GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Hero(
+            tag: 'merchant-card-${merchant.hashCode}',
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24.0),
+                  topRight: Radius.circular(24.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: [
-                      _buildMerchantImage(),
-                      SizedBox(height: 18.0),
-                      MerchantInfo(
-                        tag: 'merchant-info-${merchant.hashCode}',
-                        merchant: merchant,
-                      ),
-                    ],
-                  ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                _buildMerchantImage(),
+                SizedBox(height: 18.0),
+                MerchantInfo(
+                  tag: 'merchant-info-${merchant.hashCode}',
+                  merchant: merchant,
                 ),
               ],
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
+
+    if (kIsWeb) {
+      return HoverCursor(
+        cursor: Cursor.pointer,
+        child: child,
+      );
+    }
+
+    return child;
   }
 
   Widget _buildMerchantImage() {

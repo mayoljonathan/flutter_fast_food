@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cursor/flutter_cursor.dart';
 
 class QuantityPicker extends StatefulWidget {
   const QuantityPicker({
@@ -73,7 +75,7 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
   }
 
   Widget _buildIcon(IconData iconData) {
-    return Padding(
+    Widget child = Padding(
       padding: const EdgeInsets.all(9.0),
       child: Icon(
         iconData,
@@ -81,6 +83,15 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
         color: Colors.grey.shade600,
       ),
     );
+
+    if (kIsWeb) {
+      return HoverCursor(
+        cursor: Cursor.pointer,
+        child: child,
+      );
+    }
+
+    return child;
   }
 
   void _onIncrement() {
