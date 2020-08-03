@@ -12,6 +12,10 @@ Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 ## Mobile App Version
 [Download APK](https://github.com/mayoljonathan/flutter_fast_food/releases/download/v1.0/app-release.apk)
 
+## Screenshots
+| <img src="https://raw.githubusercontent.com/mayoljonathan/flutter_fast_food/master/docs/screenshots/screenshot1.png" width="350"> | <img src="https://raw.githubusercontent.com/mayoljonathan/flutter_fast_food/master/docs/screenshots/screenshot2.png" width="350"> |
+| ------------- |-------------|
+
 ## Getting Started
 
 To build web in Flutter run these command
