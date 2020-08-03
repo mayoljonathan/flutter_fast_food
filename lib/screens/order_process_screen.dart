@@ -52,6 +52,7 @@ class _OrderProcessScreenState extends State<OrderProcessScreen> with TickerProv
       if (mounted) {
         _orderStateAnimationController.forward().whenComplete(() {
           if (mounted) {
+            context.read<CartViewModel>().clearCart();
             setState(() => _isOrderPlaced = true);
             _orderStateAnimationController.reverse();
           }

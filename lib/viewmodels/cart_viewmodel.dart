@@ -74,4 +74,11 @@ class CartViewModel extends ChangeNotifier {
     }
     return total;
   }
+
+  void clearCart() {
+    _cartItems.clear();
+
+    _totalQuantity = _getTotalQuantityInCart();
+    _totalPrice = _getTotalPriceInCart();
+  }
 }
