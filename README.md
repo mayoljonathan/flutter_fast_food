@@ -1,4 +1,6 @@
 # Flutter Fast Food
+![Fast Food Web](https://github.com/mayoljonathan/flutter_fast_food/workflows/Fast%20Food%20Web/badge.svg)
+[![Codemagic build status](https://api.codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/status_badge.svg)](https://codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/latest_build)
 
 Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 
@@ -7,6 +9,8 @@ Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 
 [View Web Version (Fullscreen)](https://mayoljonathan.github.io/flutter_fast_food)
 
+## Mobile App Version
+[Download APK](https://github.com/mayoljonathan/flutter_fast_food/releases/download/v1.0/app-release.apk)
 
 ## Getting Started
 
