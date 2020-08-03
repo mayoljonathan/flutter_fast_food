@@ -50,7 +50,7 @@ class ItemList extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: mqd.size.width / (mqd.size.height / 1.2),
+            childAspectRatio: mqd.size.width / (mqd.size.height / 1.3),
             crossAxisCount: 2,
             crossAxisSpacing: 18.0,
             mainAxisSpacing: 24.0,
@@ -125,8 +125,10 @@ class ItemList extends StatelessWidget {
       child: Builder(
         builder: (context) => Selector<ItemViewModel, int>(
           selector: (_, model) => model.quantity,
-          builder: (_, int quantity, __) => GestureDetector(
-            behavior: HitTestBehavior.opaque,
+          builder: (_, int quantity, __) => InkWell(
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             child: ItemTile(
               layout: layout,
             ),

@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cursor/flutter_cursor.dart';
 import 'package:provider/provider.dart';
 
 import '../models/item.dart';
@@ -42,13 +40,6 @@ class ItemTile extends StatelessWidget {
         break;
     }
 
-    if (kIsWeb) {
-      return HoverCursor(
-        cursor: Cursor.pointer,
-        child: child,
-      );
-    }
-
     return child;
   }
 
@@ -68,12 +59,8 @@ class ItemTile extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Image.asset(
-                  item.imageUrl,
-                  height: 100,
-                  width: 100,
-                ),
+                padding: const EdgeInsets.all(24.0),
+                child: Image.asset(item.imageUrl),
               ),
             ),
           ),

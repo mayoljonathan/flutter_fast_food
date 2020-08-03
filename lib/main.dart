@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Manrope',
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{
-              // TODO: ZoomPageTransitionsBuilder runs build twice
               TargetPlatform.android: ZoomPageTransitionsBuilder(),
             },
           ),

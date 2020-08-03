@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cursor/flutter_cursor.dart';
 
 import '../models/merchant.dart';
 import 'merchant_info.dart';
@@ -29,7 +27,7 @@ class MerchantItem extends StatelessWidget {
   }
 
   Widget _buildCard() {
-    Widget child = GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Stack(
         children: [
@@ -61,15 +59,6 @@ class MerchantItem extends StatelessWidget {
         ],
       ),
     );
-
-    if (kIsWeb) {
-      return HoverCursor(
-        cursor: Cursor.pointer,
-        child: child,
-      );
-    }
-
-    return child;
   }
 
   Widget _buildMerchantImage() {

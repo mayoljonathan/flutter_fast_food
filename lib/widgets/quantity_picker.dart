@@ -1,7 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cursor/flutter_cursor.dart';
 
 class QuantityPicker extends StatefulWidget {
   const QuantityPicker({
@@ -48,9 +46,9 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
           child: Row(
             children: [
               if (canDecrement)
-                GestureDetector(
+                InkWell(
+                  borderRadius: BorderRadius.circular(24.0),
                   onTap: _onDecrement,
-                  behavior: HitTestBehavior.translucent,
                   child: _buildIcon(EvaIcons.minusOutline),
                 ),
               if (_value != 0)
@@ -62,9 +60,9 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
                   child: Text(_value.toString()),
                 ),
               if (canIncrement)
-                GestureDetector(
+                InkWell(
+                  borderRadius: BorderRadius.circular(24.0),
                   onTap: _onIncrement,
-                  behavior: HitTestBehavior.translucent,
                   child: _buildIcon(EvaIcons.plusOutline),
                 ),
             ],
@@ -75,7 +73,7 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
   }
 
   Widget _buildIcon(IconData iconData) {
-    Widget child = Padding(
+    return Padding(
       padding: const EdgeInsets.all(9.0),
       child: Icon(
         iconData,
@@ -83,15 +81,6 @@ class _QuantityPickerState extends State<QuantityPicker> with SingleTickerProvid
         color: Colors.grey.shade600,
       ),
     );
-
-    if (kIsWeb) {
-      return HoverCursor(
-        cursor: Cursor.pointer,
-        child: child,
-      );
-    }
-
-    return child;
   }
 
   void _onIncrement() {
