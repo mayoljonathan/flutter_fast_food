@@ -1,4 +1,4 @@
-name: Flutter Fast Food
+name: Fast Food Web
 on:
   push:
     branches:
