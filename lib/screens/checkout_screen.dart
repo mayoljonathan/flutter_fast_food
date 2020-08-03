@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fast_food/widgets/fade_translate_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -160,9 +161,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text('You might like'),
             ),
-            child: ItemList(
-              itemCategory: _suggestedItems,
-              showHeader: false,
+            child: FadeTranslateAnimation(
+              offset: Offset(30, 0),
+              child: ItemList(
+                itemCategory: _suggestedItems,
+                showHeader: false,
+              ),
             ),
           ),
           Padding(
