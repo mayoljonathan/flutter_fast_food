@@ -14,7 +14,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   animations: ^1.1.1
   provider: ^4.3.1
-  page_transition: ^1.1.6
+  lottie: ^0.5.1
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +24,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/animations/
 
   fonts:
     - family: Manrope

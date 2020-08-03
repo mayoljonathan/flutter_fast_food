@@ -18,4 +18,6 @@ class Images {
   static const String SHAKE_SHACK_HERO = 'assets/images/shake_shack_hero.png';
 
   static const String APPLE_PAY = 'assets/images/apple_pay.png';
+
+  static const String SMILEY = 'assets/images/smiley.png';
 }

@@ -14,6 +14,7 @@ import '../widgets/awesome_button.dart';
 import '../widgets/item_list.dart';
 import '../widgets/item_tile.dart';
 import 'item_detail_screen.dart';
+import 'order_process_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -114,7 +115,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               builder: (_, double totalPrice, __) => AwesomeButton(
                 tag: 'cta',
                 text: 'Pay PHP ${totalPrice.toString()}',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => OrderProcessScreen(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
