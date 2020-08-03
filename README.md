@@ -1,16 +1,27 @@
-# fast_food
+# Flutter Fast Food
+![Fast Food Web](https://github.com/mayoljonathan/flutter_fast_food/workflows/Fast%20Food%20Web/badge.svg)
+[![Codemagic build status](https://api.codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/status_badge.svg)](https://codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/latest_build)
 
-A new Flutter project.
+Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
+
+## Web Version
+[View Web Version (Mobile size screen)](https://mayoljonathan.github.io/flutter_fast_food_landing)
+
+[View Web Version (Fullscreen)](https://mayoljonathan.github.io/flutter_fast_food)
+
+## Mobile App Version
+[Download APK](https://github.com/mayoljonathan/flutter_fast_food/releases/download/v1.0/app-release.apk)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To build web in Flutter run these command
+```
+flutter channel beta
+flutter upgrade
+flutter config --enable-web
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To develop for web
+```
+flutter run -d chrome
+```
