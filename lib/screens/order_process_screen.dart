@@ -103,7 +103,7 @@ class _OrderProcessScreenState extends State<OrderProcessScreen> with TickerProv
               child: SafeArea(
                 top: true,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
+                  padding: const EdgeInsets.only(left: 4.0, top: 4.0),
                   child: IconButton(
                     icon: Icon(EvaIcons.arrowBackOutline, color: Colors.white),
                     onPressed: _goBackOrToHome,
@@ -203,7 +203,11 @@ class _OrderProcessScreenState extends State<OrderProcessScreen> with TickerProv
     );
   }
 
-  Widget _buildInfoText({@required String title, @required String message, Curve curve = Curves.easeIn}) {
+  Widget _buildInfoText({
+    @required String title,
+    @required String message,
+    Curve curve = Curves.easeIn,
+  }) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return FadeTranslateAnimation(
