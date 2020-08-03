@@ -62,6 +62,8 @@ class ItemTile extends StatelessWidget {
                 padding: const EdgeInsets.all(18.0),
                 child: Image.asset(
                   item.imageUrl,
+                  height: 100,
+                  width: 100,
                 ),
               ),
             ),
@@ -72,7 +74,11 @@ class ItemTile extends StatelessWidget {
             top: 9.0,
             bottom: 3.0,
           ),
-          child: Text(item.name),
+          child: Text(
+            item.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
