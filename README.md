@@ -3,7 +3,7 @@
 Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 
 ## Web Version
-[View Web Version (Mobile size screen)](https://mayoljonathan.github.io/flutter_fast_food/docs)
+[View Web Version (Mobile size screen)](https://mayoljonathan.github.io/flutter_fast_food_landing)
 
 [View Web Version (Fullscreen)](https://mayoljonathan.github.io/flutter_fast_food)
 
