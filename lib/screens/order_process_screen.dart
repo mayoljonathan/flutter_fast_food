@@ -93,7 +93,7 @@ class _OrderProcessScreenState extends State<OrderProcessScreen> with TickerProv
           alignment: Alignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
               child: FadeTransition(
                 opacity: _orderStateOpacityAnimation,
                 child: !_isOrderPlaced ? _buildLoadingState() : _buildSuccessState(),
