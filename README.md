@@ -2,6 +2,8 @@
 ![Fast Food Web](https://github.com/mayoljonathan/flutter_fast_food/workflows/Fast%20Food%20Web/badge.svg)
 [![Codemagic build status](https://api.codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/status_badge.svg)](https://codemagic.io/apps/5f282e1162e592001bc8119c/5f282e1162e592001bc8119b/latest_build)
 
+An entry for [Flutter Philippines #UIChallenge — August 2020!](https://medium.com/flutterphilippines/flutter-philippines-uichallenge-august-2020-d747b4cc38d)
+
 Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 
 ## Web Version
