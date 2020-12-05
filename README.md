@@ -4,6 +4,8 @@
 
 An entry for [Flutter Philippines #UIChallenge — August 2020!](https://medium.com/flutterphilippines/flutter-philippines-uichallenge-august-2020-d747b4cc38d)
 
+View [#UIChallenge Favorites (August 2020)](https://medium.com/flutterphilippines/flutter-philippines-uichallenge-september-2020-82f1549503b4)
+
 Design Reference: https://dribbble.com/shots/10813423-Fast-Food-Order-Flow
 
 ## Web Version
